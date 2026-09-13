@@ -1,0 +1,349 @@
+/* ============================================================
+   VSN ERP Visual Workflow System — Diagram SVG Styles
+   ============================================================ */
+
+/* ---- SVG Canvas Base ---- */
+.diagram-svg {
+  font-family: var(--font-family);
+  overflow: visible;
+}
+
+/* ---- Node Base ---- */
+.node {
+  cursor: pointer;
+  transition: opacity var(--transition-fast), filter var(--transition-fast);
+}
+
+.node .node-bg {
+  transition: stroke var(--transition-fast), stroke-width var(--transition-fast), filter var(--transition-fast);
+}
+
+.node:hover .node-bg {
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.08));
+}
+
+.node.selected .node-bg {
+  stroke: var(--dept-sales);
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 0 3px rgba(59,130,246,0.15));
+}
+
+.node.dimmed {
+  opacity: 0.25;
+}
+
+.node.dimmed:hover {
+  opacity: 0.5;
+}
+
+/* ---- Process Node ---- */
+.process-node .node-bg {
+  fill: var(--bg-surface);
+  stroke: var(--border);
+  stroke-width: var(--node-border);
+  rx: var(--node-radius);
+  ry: var(--node-radius);
+}
+
+.process-node .node-accent {
+  rx: 2px;
+  ry: 2px;
+}
+
+.process-node .node-title {
+  font-size: 13px;
+  font-weight: var(--weight-semibold);
+  fill: var(--text-primary);
+}
+
+.process-node .node-desc {
+  font-size: 11px;
+  fill: var(--text-secondary);
+}
+
+/* Department accent colors */
+.process-node[data-dept="customer"] .node-accent  { fill: var(--dept-customer); }
+.process-node[data-dept="sales"] .node-accent     { fill: var(--dept-sales); }
+.process-node[data-dept="purchase"] .node-accent  { fill: var(--dept-purchase); }
+.process-node[data-dept="finance"] .node-accent   { fill: var(--dept-finance); }
+.process-node[data-dept="logistics"] .node-accent { fill: var(--dept-logistics); }
+.process-node[data-dept="store"] .node-accent     { fill: var(--dept-store); }
+.process-node[data-dept="management"] .node-accent{ fill: var(--dept-management); }
+
+/* ---- Decision Node ---- */
+.decision-node {
+  cursor: pointer;
+}
+
+.decision-node polygon {
+  fill: var(--bg-surface);
+  stroke: var(--border);
+  stroke-width: var(--node-border);
+  transition: stroke var(--transition-fast), stroke-width var(--transition-fast), filter var(--transition-fast);
+}
+
+.decision-node:hover polygon {
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.08));
+}
+
+.decision-node.selected polygon {
+  stroke: var(--dept-sales);
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 0 3px rgba(59,130,246,0.15));
+}
+
+.decision-node text {
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  fill: var(--text-primary);
+}
+
+.decision-label {
+  font-size: 11px;
+  fill: var(--text-muted);
+  font-weight: var(--weight-medium);
+}
+
+/* ---- Exception Node ---- */
+.exception-node .node-bg {
+  fill: var(--exception-bg);
+  stroke: var(--exception-border);
+  stroke-width: var(--node-border);
+  rx: var(--node-radius);
+  ry: var(--node-radius);
+  transition: stroke var(--transition-fast), stroke-width var(--transition-fast);
+}
+
+.exception-node .node-accent {
+  fill: var(--exception-accent);
+  rx: 2px;
+  ry: 2px;
+}
+
+.exception-node .node-title {
+  font-size: 13px;
+  font-weight: var(--weight-semibold);
+  fill: var(--exception-accent);
+}
+
+.exception-node .node-desc {
+  font-size: 11px;
+  fill: var(--text-secondary);
+}
+
+.exception-node.selected .node-bg {
+  stroke: var(--exception-accent);
+  stroke-width: 2px;
+}
+
+/* ---- Automation Node ---- */
+.automation-node .node-bg {
+  fill: var(--auto-bg);
+  stroke: var(--auto-border);
+  stroke-width: var(--node-border);
+  stroke-dasharray: 4 2;
+  rx: var(--node-radius);
+  ry: var(--node-radius);
+  transition: stroke var(--transition-fast), stroke-width var(--transition-fast);
+}
+
+.automation-node .node-accent {
+  fill: var(--auto-accent);
+  rx: 2px;
+  ry: 2px;
+}
+
+.automation-node .node-title {
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  fill: var(--auto-accent);
+}
+
+.automation-node.selected .node-bg {
+  stroke: var(--auto-accent);
+  stroke-width: 2px;
+}
+
+/* ---- Transaction State Badge ---- */
+.state-badge rect {
+  rx: 4px;
+  ry: 4px;
+  stroke-width: 1px;
+}
+
+.state-badge text {
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  dominant-baseline: central;
+  text-anchor: middle;
+}
+
+.state-badge[data-state="assigned"] rect    { fill: #DBEAFE; stroke: #93C5FD; }
+.state-badge[data-state="assigned"] text    { fill: #1E40AF; }
+.state-badge[data-state="in-progress"] rect { fill: #D1FAE5; stroke: #6EE7B7; }
+.state-badge[data-state="in-progress"] text { fill: #065F46; }
+.state-badge[data-state="waiting"] rect     { fill: #FEF3C7; stroke: #FCD34D; }
+.state-badge[data-state="waiting"] text     { fill: #92400E; }
+.state-badge[data-state="blocked"] rect     { fill: #FEE2E2; stroke: #FCA5A5; }
+.state-badge[data-state="blocked"] text     { fill: #991B1B; }
+.state-badge[data-state="completed"] rect   { fill: #D1FAE5; stroke: #34D399; }
+.state-badge[data-state="completed"] text   { fill: #065F46; }
+.state-badge[data-state="overdue"] rect     { fill: #FEE2E2; stroke: #EF4444; }
+.state-badge[data-state="overdue"] text     { fill: #991B1B; }
+.state-badge[data-state="escalated"] rect   { fill: #FEF3C7; stroke: #F59E0B; }
+.state-badge[data-state="escalated"] text   { fill: #92400E; }
+.state-badge[data-state="cancelled"] rect   { fill: #F3F4F6; stroke: #D1D5DB; }
+.state-badge[data-state="cancelled"] text   { fill: #6B7280; }
+.state-badge[data-state="pending-approval"] rect { fill: #EDE9FE; stroke: #C4B5FD; }
+.state-badge[data-state="pending-approval"] text { fill: #5B21B6; }
+
+/* ---- Department Label ---- */
+.dept-label {
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.dept-label rect {
+  rx: 4px;
+  ry: 4px;
+  stroke-width: 1px;
+}
+
+.dept-label text {
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  dominant-baseline: central;
+}
+
+.dept-label[data-dept="customer"] rect  { fill: rgba(102,112,133,0.12); stroke: rgba(102,112,133,0.25); }
+.dept-label[data-dept="customer"] text  { fill: var(--dept-customer); }
+.dept-label[data-dept="sales"] rect     { fill: rgba(59,130,246,0.12);  stroke: rgba(59,130,246,0.25); }
+.dept-label[data-dept="sales"] text     { fill: var(--dept-sales); }
+.dept-label[data-dept="purchase"] rect  { fill: rgba(139,92,246,0.12);  stroke: rgba(139,92,246,0.25); }
+.dept-label[data-dept="purchase"] text  { fill: var(--dept-purchase); }
+.dept-label[data-dept="finance"] rect   { fill: rgba(16,185,129,0.12);  stroke: rgba(16,185,129,0.25); }
+.dept-label[data-dept="finance"] text   { fill: var(--dept-finance); }
+.dept-label[data-dept="logistics"] rect { fill: rgba(245,158,11,0.12);  stroke: rgba(245,158,11,0.25); }
+.dept-label[data-dept="logistics"] text { fill: var(--dept-logistics); }
+.dept-label[data-dept="store"] rect     { fill: rgba(20,184,166,0.12);  stroke: rgba(20,184,166,0.25); }
+.dept-label[data-dept="store"] text     { fill: var(--dept-store); }
+.dept-label[data-dept="management"] rect{ fill: rgba(67,56,202,0.12);   stroke: rgba(67,56,202,0.25); }
+.dept-label[data-dept="management"] text{ fill: var(--dept-management); }
+
+.dept-label:hover {
+  opacity: 0.8;
+}
+
+/* ---- Connectors ---- */
+.connector {
+  fill: none;
+  stroke: var(--connector-color);
+  stroke-width: var(--connector-width);
+  marker-end: url(#arrow);
+  transition: opacity var(--transition-fast);
+}
+
+.connector.dashed {
+  stroke-dasharray: 6 4;
+  stroke: var(--connector-light);
+  marker-end: url(#arrow);
+}
+
+.connector.exception {
+  stroke: var(--exception-accent);
+  stroke-dasharray: 6 4;
+  marker-end: url(#arrow-exception);
+}
+
+.connector.return {
+  marker-end: url(#arrow-return);
+}
+
+.connector.handoff {
+  stroke: var(--connector-color);
+  stroke-width: 2.5px;
+  marker-end: url(#arrow);
+}
+
+/* ---- Handoff Dot ---- */
+.handoff-dot {
+  fill: var(--bg-surface);
+  stroke: var(--connector-color);
+  stroke-width: 2px;
+}
+
+/* ---- Handoff Label ---- */
+.handoff-label {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  fill: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Department Lane Background ---- */
+.dept-lane {
+  fill: var(--bg-surface-alt);
+  opacity: 0.5;
+}
+
+.dept-lane-label {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  fill: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+/* ---- View Mode Layer Visibility ---- */
+.layer-automation,
+.layer-exceptions,
+.layer-handoffs {
+  display: none;
+}
+
+.view-automation .layer-automation {
+  display: block;
+}
+
+.view-exceptions .layer-exceptions {
+  display: block;
+}
+
+.view-handoffs .layer-handoffs {
+  display: block;
+}
+
+/* ---- Department Highlight Mode ---- */
+body.dept-highlight .node:not([data-dept]) {
+  opacity: 0.15;
+}
+
+body.dept-highlight .node.dimmed-by-dept {
+  opacity: 0.15;
+}
+
+body.dept-highlight .node.dimmed-by-dept:hover {
+  opacity: 0.4;
+}
+
+body.dept-highlight .connector {
+  opacity: 0.15;
+}
+
+body.dept-highlight .dept-label {
+  opacity: 0.5;
+}
+
+body.dept-highlight .dept-label[data-dept] {
+  opacity: 1;
+}
+
+/* ---- Zoom ---- */
+.zoomable-svg {
+  transform-origin: 0 0;
+  transition: transform var(--transition-fast);
+}

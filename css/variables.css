@@ -1,0 +1,92 @@
+/* ============================================================
+   VSN ERP Visual Workflow System — Design Tokens
+   ============================================================ */
+
+:root {
+  /* ---- Page Surfaces ---- */
+  --bg-page:        #F8F9FB;
+  --bg-surface:     #FFFFFF;
+  --bg-surface-alt: #F1F3F7;
+
+  /* ---- Borders ---- */
+  --border:         #D0D5DD;
+  --border-light:   #E4E7EC;
+
+  /* ---- Text Hierarchy ---- */
+  --text-primary:   #1A1D29;
+  --text-secondary: #5F6B7A;
+  --text-muted:     #98A2B3;
+
+  /* ---- Department Accents ---- */
+  --dept-customer:  #667085;
+  --dept-sales:     #3B82F6;
+  --dept-purchase:  #8B5CF6;
+  --dept-finance:   #10B981;
+  --dept-logistics: #F59E0B;
+  --dept-store:     #14B8A6;
+  --dept-management:#4338CA;
+
+  /* ---- Semantic Colors ---- */
+  --color-success:  #10B981;
+  --color-warning:  #F59E0B;
+  --color-error:    #EF4444;
+  --color-info:     #3B82F6;
+
+  /* ---- Automation Treatment ---- */
+  --auto-bg:        #EEF2FF;
+  --auto-border:    #A5B4FC;
+  --auto-accent:    #6366F1;
+
+  /* ---- Exception Treatment ---- */
+  --exception-bg:       #FEF2F2;
+  --exception-border:   #FECACA;
+  --exception-accent:   #EF4444;
+
+  /* ---- Management Treatment ---- */
+  --mgmt-bg:        #EEF2FF;
+  --mgmt-border:    #C7D2FE;
+  --mgmt-accent:    #4338CA;
+
+  /* ---- Layout ---- */
+  --sidebar-width:  260px;
+  --header-height:  64px;
+
+  /* ---- SVG Node Dimensions ---- */
+  --node-width:     180px;
+  --node-height:    60px;
+  --node-radius:    6px;
+  --node-border:    1.5px;
+  --connector-width: 2px;
+  --connector-color: #667085;
+  --connector-light: #98A2B3;
+
+  /* ---- Spacing Scale (4px increments) ---- */
+  --spacing-1:  4px;
+  --spacing-2:  8px;
+  --spacing-3:  12px;
+  --spacing-4:  16px;
+  --spacing-5:  20px;
+  --spacing-6:  24px;
+  --spacing-8:  32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+
+  /* ---- Typography ---- */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --text-xs:  11px;
+  --text-sm:  12px;
+  --text-base: 14px;
+  --text-lg:  16px;
+  --text-xl:  18px;
+  --text-2xl: 20px;
+  --text-3xl: 28px;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ---- Transitions ---- */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+}
