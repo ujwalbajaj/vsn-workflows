@@ -26,13 +26,12 @@ export default function Diagram({ wf, onClose }) {
     const timer = setTimeout(() => {
       const body = document.getElementById('diagBody')
       if (body) {
-        const allNodes = body.querySelectorAll('g.node')
         setStats({
-          all: allNodes.length || 1,
-          dec: body.querySelectorAll('g.node.decision-node, polygon').length,
-          exc: body.querySelectorAll('g.node.exception-node, .connector.exception-path').length,
-          auto: body.querySelectorAll('g.node.automation-node, .connector.automation-path').length,
-          hand: body.querySelectorAll('g.node.handoff-node, .handoff-dot').length
+          all: body.querySelectorAll('g.node[data-id]').length,
+          dec: body.querySelectorAll('g.node.decision-node[data-id]').length,
+          exc: body.querySelectorAll('g.node.exception-node[data-id]').length,
+          auto: body.querySelectorAll('g.node.automation-node[data-id]').length,
+          hand: body.querySelectorAll('g.node.handoff-node[data-id]').length + body.querySelectorAll('.handoff-dot').length
         })
       }
     }, 50)
@@ -47,7 +46,9 @@ export default function Diagram({ wf, onClose }) {
   const svg = DIAGRAMS[wf] || ''
   const vb = (/viewBox="([\d.]+) ([\d.]+) ([\d.]+) ([\d.]+)"/).exec(svg)
   const vbW = vb ? +vb[3] : 1000
-  const markup = svg.replace('<svg', `<svg style="width:${mode === 'fit' ? '100%' : Math.round(vbW * zoom) + 'px'};height:auto;" ${mode === 'zoom' ? 'class="wf-zoom"' : ''}`)
+  const width = mode === 'fit' ? '100%' : Math.round(vbW * zoom) + 'px'
+  const klass = mode === 'zoom' ? 'diagram-svg wf-zoom' : 'diagram-svg'
+  const markup = svg.replace('class="diagram-svg"', `class="${klass}" style="width:${width};height:auto;"`)
 
   const baseScale = () => (scrollRef.current ? (scrollRef.current.clientWidth - 44) / vbW : 1)
 

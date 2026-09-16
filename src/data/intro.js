@@ -10,13 +10,11 @@ export const ACTINTRO = [
 ]
 
 export const GUIDE = [
-  { sel: '.acttab[data-a="1"]', act: 1, title: '1 · The Transaction', text: 'Tab <b>01</b> plays the deal itself: an RFQ from a real VSN note — <b>MPN-24LC256 · 1000 pcs</b> — from customer all the way to proof of delivery.', next: 'Show me the controls' },
+{ sel: '.acttab[data-a="1"]', act: 1, title: '1 · The Transaction', text: 'Tab <b>01</b> plays the deal itself: an RFQ from a real VSN note — <b>MPN-24LC256 · 1000 pcs</b> — from customer all the way to proof of delivery.', next: 'Show me the controls' },
   { sel: '#btnPlay', act: 1, title: 'Play & Pause', text: "<b>Play</b> runs all 28 steps automatically and resolves each decision using VSN's rules. It becomes <b>Pause</b> while it runs." },
   { sel: '#btnStep', act: 1, title: 'Step', text: 'Prefer to go slowly? <b>Step</b> advances one step at a time — handy when you want to read each handoff or decision.' },
   { sel: '.trow', act: 1, title: 'The 28 steps', text: 'Every row is <b>already filled from your notes</b> — number, owning department (its colour) and the rule ID it came from. The step in progress opens its details below the title.' },
   { sel: '.logc', act: 1, title: 'The live log', text: "Every event this run produces lands here with a timestamp: decisions taken, handoffs, in-cadence events. <b>The whole deal leaves an audit trail</b>." },
-  { sel: '#legendBtn', act: 1, title: 'Colour legend', text: 'Click <b>Colour legend</b> any time — it decodes every colour, icon and state marker on this page. We added it so nothing is guesswork.' },
-  { sel: '.acttab[data-a="2"]', act: 2, title: '7 · The System', text: 'Tab <b>02</b> is everything we mapped from your repo: <b>22 workflow files / 22 workflows · 198 process nodes</b>, grouped by how they serve you.' },
   { sel: '.wfcard', act: 2, title: 'Click any workflow', text: 'Click a card and its full workflow diagram opens — the same SVG from your workflows page. Nodes, decisions, exceptions and handoffs, all in one neat view.' },
   { sel: '.acttab[data-a="3"]', act: 3, title: '9 · The offer', text: 'Tab <b>03</b> is what we can sell you: the repetitive, chase-prone work we can move onto the ERP — while your team keeps the decisions.' },
   { sel: '.mod', act: 3, title: 'Six automation modules', text: '<b>Task handoff · SLA escalations · ETA updates · exception routing · document compliance · management alerts.</b> Click any module to expand it.' },

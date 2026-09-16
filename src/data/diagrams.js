@@ -74,7 +74,7 @@ export const DIAGRAMS = {
             <path class="connector" d="m 280 390 l 0 20 l 220 0"/>
 
             <!-- Logistics → Store (converge) -->
-            <path class="connector" d="m 720 390 l 0 20 l -220 0"/>
+            <path class="connector" d="m 630 390 l 0 -20 l -130 0 l 0 40"/>
 
             <!-- Store → QC -->
             <path class="connector" d="m 500 470 l 0 20"/>
@@ -296,7 +296,7 @@ export const DIAGRAMS = {
             <!-- quote-sent → customer-review (vertical) -->
             <path class="connector" d="m 750 260 l 0 20" marker-end="url(#arrow-wf01)"/>
             <!-- customer-review → margin-check (diagonal) -->
-            <path class="connector" d="m 750 330 l 0 15 l -210 0 l 0 15" marker-end="url(#arrow-wf01)"/>
+            <path class="connector" d="m 700 330 l -135 0 l 0 15 l -15 0" marker-end="url(#arrow-wf01)"/>
             <!-- margin-check YES → terms-negotiation (right branch) -->
             <path class="connector" d="m 550 365 l 0 15 l 150 0 l 0 15" marker-end="url(#arrow-wf01)"/>
             <text x="620" y="360" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">YES</text>
@@ -309,16 +309,16 @@ export const DIAGRAMS = {
             <path class="connector exception-path" d="m 300 370 l 0 15 l -100 0 l 0 -75" marker-end="url(#arrow-exception-wf01)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
             <text x="200" y="365" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">Revision</text>
             <!-- price-revision → requirement-validated (loop back) -->
-            <path class="connector exception-path" d="m 240 290 l 0 -25 l -100 0 l 0 -90 l 200 0 l 0 15" marker-end="url(#arrow-exception-wf01)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
+            <path class="connector exception-path" d="m 260 265 l 0 -70" marker-end="url(#arrow-exception-wf01)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
             <!-- terms-negotiation → terms-agreed (vertical) -->
             <path class="connector" d="m 750 420 l 0 20" marker-end="url(#arrow-wf01)"/>
             <!-- terms-agreed → order-confirmed (diagonal) -->
-            <path class="connector" d="m 660 445 l 0 15 l -150 0 l 0 15" marker-end="url(#arrow-wf01)"/>
+            <path class="connector" d="m 660 445 l -65 0 l 0 55 l -63 0" marker-end="url(#arrow-wf01)"/>
             <!-- order-confirmed → order-to-purchase (diagonal, crosses Management→Purchase) -->
             <path class="connector handoff" d="m 550 470 l 0 15 l -100 0 l 0 15" marker-end="url(#arrow-wf01)"/>
             <circle class="handoff-dot" cx="550" cy="400" r="4"/>
             <!-- order-confirmed → auto-create-rfq (exception path) -->
-            <path class="connector automation-path" d="m 450 470 l 0 15 l -210 0 l 0 15" marker-end="url(#arrow-auto-wf01)" stroke="#6366F1" stroke-dasharray="4 4" fill="none"/>
+            <path class="connector automation-path" d="m 450 470 l -120 0 l 0 -15 l -100 0 l 0 15" marker-end="url(#arrow-auto-wf01)" stroke="#6366F1" stroke-dasharray="4 4" fill="none"/>
             <!-- order-to-purchase → order-complete (vertical) -->
             <path class="connector" d="m 450 520 l 0 15 l 200 0 l 0 15" marker-end="url(#arrow-wf01)"/>
             <!-- clarification → requirement-validated (loop back) -->
@@ -492,7 +492,8 @@ export const DIAGRAMS = {
             <path class="connector" d="m 450 205 l 0 15 l 50 0 l 0 15" marker-end="url(#arrow-wf02)"/>
             <!-- vendor-selection YES → vendor-negotiation -->
             <path class="connector" d="m 550 285 l 0 10" marker-end="url(#arrow-wf02)"/>
-            <text x="580" y="280" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">YES</text>
+            <text x="565" y="292" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">YES</text>
+            <!-- vendor-selection → vendor-negotiation (intake) -->
             <!-- vendor-selection NO → renegotiation -->
             <path class="connector exception-path" d="m 600 255 l 50 0" marker-end="url(#arrow-exception-wf02)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
             <text x="620" y="248" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">NO</text>
@@ -507,7 +508,7 @@ export const DIAGRAMS = {
             <!-- finance-review → po-approved (diagonal) -->
             <path class="connector" d="m 460 440 l 0 15 l -120 0 l 0 15" marker-end="url(#arrow-wf02)"/>
             <!-- finance-review loop back -->
-            <path class="connector exception-path" d="m 460 415 l 0 15 l -200 0 l 0 -30" marker-end="url(#arrow-exception-wf02)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
+            <path class="connector exception-path" d="m 460 415 l 0 -5 l -200 0 l 0 -10" marker-end="url(#arrow-exception-wf02)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
             <!-- po-approved → po-sent-vendor (crosses Finance→Management) -->
             <path class="connector handoff" d="m 420 465 l 40 0 l 0 25" marker-end="url(#arrow-wf02)"/>
             <circle class="handoff-dot" cx="420" cy="500" r="4"/>
@@ -937,10 +938,10 @@ export const DIAGRAMS = {
             <path class="connector" d="m 150 80 l 0 20" marker-end="url(#arrow-wf06)"/>
             <!-- inspection-passed → bin-assignment (pass) -->
             <path class="connector" d="m 350 160 l 0 15 l 100 0 l 0 15" marker-end="url(#arrow-wf06)"/>
-            <text x="430" y="155" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">PASS</text>
+            <text x="420" y="168" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">PASS</text>
             <!-- inspection-passed → exception-hold (fail) -->
             <path class="connector exception-path" d="m 260 145 l 0 15 l -100 0 l 0 15" marker-end="url(#arrow-exception-wf06)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
-            <text x="160" y="155" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">FAIL</text>
+            <text x="150" y="132" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">FAIL</text>
             <!-- exception-hold → inspection-passed (loop back) -->
             <path class="connector exception-path" d="m 150 175 l 0 -20" marker-end="url(#arrow-exception-wf06)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
             <!-- bin-assignment → stock-updated -->
@@ -1045,7 +1046,7 @@ export const DIAGRAMS = {
             <path class="connector" d="m 550 320 l 0 30" marker-end="url(#arrow-wf07)"/>
             <path class="connector" d="m 550 350 l 0 30" marker-end="url(#arrow-wf07)"/>
             <!-- Reschedule loop -->
-            <path class="connector exception-path" d="m 700 290 l 0 60 l -200 0 l 0 -60" marker-end="url(#arrow-exception-wf07)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
+            <path class="connector exception-path" d="m 700 290 l -100 0 l 0 -40" marker-end="url(#arrow-exception-wf07)" stroke="#EF4444" stroke-dasharray="6 4" fill="none"/>
           </g>
 
           <!-- Process Nodes -->
@@ -1564,11 +1565,11 @@ export const DIAGRAMS = {
     <path class="connector exception-path" fill="none" d="M710,185 L710,240 C710,300 830,300 830,324" marker-end="url(#arrow-ex-store-qc)"/>
     <text x="810" y="274" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">Rejected / Damaged</text>
     <path class="connector" fill="none" d="M315,345 L349,345" marker-end="url(#arrow-store-qc)"/>
-    <path class="connector" fill="none" d="M410,345 C440,254 850,256 850,246 L850,216" marker-end="url(#arrow-store-qc)"/>
+    <path class="connector" fill="none" d="M410,345 L410,326 L945,326 L945,185 L940,185" marker-end="url(#arrow-store-qc)"/>
     <text x="520" y="322" text-anchor="middle" font-size="9" fill="#10B981" font-weight="600">Release to inventory</text>
     <path class="connector exception-path" fill="none" d="M410,355 L754,355" marker-end="url(#arrow-ex-store-qc)"/>
     <text x="640" y="376" text-anchor="middle" font-size="9" fill="#EF4444" font-weight="600">Reject after inspection</text>
-    <path class="connector" fill="none" d="M945,185 L965,185 Q975,185 975,195 L975,440 Q975,450 965,450 L575,450 Q490,450 490,462 L490,474" marker-end="url(#arrow-store-qc)"/>
+    <path class="connector" fill="none" d="M945,185 L942,185 L942,155 L120,155 L120,470 L490,470 Q490,470 490,484" marker-end="url(#arrow-store-qc)"/>
     <circle class="handoff-dot" cx="975" cy="430" r="4"/>
     <path class="connector" fill="none" d="M585,505 L754,505" marker-end="url(#arrow-store-qc)"/>
     <path class="connector exception-path" fill="none" d="M945,355 L945,465 L985,465 Q995,465 995,455 L995,26 Q995,16 985,16 L160,16 Q150,16 150,26 L150,39" marker-end="url(#arrow-ex-store-qc)"/>
