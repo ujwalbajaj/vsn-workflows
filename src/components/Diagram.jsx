@@ -22,26 +22,32 @@ export default function Diagram({ wf, onClose }) {
     setZoom(1)
     setInfo(null)
     setStats(null)
-    const body = document.getElementById('diagBody')
-    if (body) {
-      setStats({
-        all: body.querySelectorAll('g.node[data-id]').length,
-        dec: body.querySelectorAll('g.node.decision-node[data-id]').length,
-        exc: body.querySelectorAll('g.node.exception-node[data-id]').length,
-        auto: body.querySelectorAll('g.node.automation-node[data-id]').length,
-        hand: body.querySelectorAll('g.node.handoff-node[data-id]').length + body.querySelectorAll('.handoff-dot').length
-      })
-    }
+
+    const timer = setTimeout(() => {
+      const body = document.getElementById('diagBody')
+      if (body) {
+        const allNodes = body.querySelectorAll('g.node')
+        setStats({
+          all: allNodes.length || 1,
+          dec: body.querySelectorAll('g.node.decision-node, polygon').length,
+          exc: body.querySelectorAll('g.node.exception-node, .connector.exception-path').length,
+          auto: body.querySelectorAll('g.node.automation-node, .connector.automation-path').length,
+          hand: body.querySelectorAll('g.node.handoff-node, .handoff-dot').length
+        })
+      }
+    }, 50)
+
     const sc = scrollRef.current
     if (sc) sc.scrollTop = sc.scrollLeft = 0
+    return () => clearTimeout(timer)
   }, [wf])
 
   if (!wf) return null
 
-  const svg = DIAGRAMS[wf]
+  const svg = DIAGRAMS[wf] || ''
   const vb = (/viewBox="([\d.]+) ([\d.]+) ([\d.]+) ([\d.]+)"/).exec(svg)
   const vbW = vb ? +vb[3] : 1000
-  const markup = svg.replace('<svg', `<svg style="width:${mode === 'fit' ? '100%' : Math.round(vbW * zoom) + 'px'}" ${mode === 'zoom' ? 'class="wf-zoom"' : ''}`)
+  const markup = svg.replace('<svg', `<svg style="width:${mode === 'fit' ? '100%' : Math.round(vbW * zoom) + 'px'};height:auto;" ${mode === 'zoom' ? 'class="wf-zoom"' : ''}`)
 
   const baseScale = () => (scrollRef.current ? (scrollRef.current.clientWidth - 44) / vbW : 1)
 

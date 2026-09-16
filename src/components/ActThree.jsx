@@ -4,7 +4,15 @@ import { Icon } from '../lib/icons.jsx'
 
 export default function ActThree({ on }) {
   const [selMod, setSelMod] = useState(null)
+  const [volume, setVolume] = useState(120) // orders per month
+
   const m = selMod ? MODS.find(x => x.id === selMod) : null
+
+  // Calculate dynamic ROI metrics based on volume
+  const hoursSaved = Math.round(volume * 2.2)
+  const costSavings = (volume * 38).toLocaleString()
+  const errorReduction = Math.min(99, Math.round(volume * 0.15 + 85))
+
   return (
     <div className={'act' + (on ? ' on' : '')} data-slot="3" style={{ display: on ? 'flex' : 'none' }}>
       <div className="scrolly">
@@ -13,6 +21,47 @@ export default function ActThree({ on }) {
           <h1>Your workflows work. They're just running on people — not on a system.</h1>
           <div className="sub">We mapped all 22 of your workflows. Now here's the part we can <b>sell to you</b>: the ERP takes over the repetitive, chase-prone, hand-carried parts — and your team keeps the thinking.</div>
           <div className="pibadges"><span className="pib">⚙ 6 automation modules</span><span className="pib">⇄ handoffs that don't need following-up</span><span className="pib">1 shared timeline for the whole order</span></div>
+        </div>
+
+        {/* Interactive ROI Impact Calculator */}
+        <div className="roi-calculator">
+          <div className="roi-head">
+            <div className="sct">Interactive ROI &amp; Value Estimator</div>
+            <h2>What VSN Automation Saves Your Team</h2>
+            <p>Adjust your monthly order volume to see projected time and cost savings.</p>
+          </div>
+          <div className="roi-body">
+            <div className="roi-control">
+              <label>Monthly Order Volume: <b>{volume} orders / month</b></label>
+              <input
+                type="range"
+                min="20"
+                max="500"
+                step="10"
+                value={volume}
+                onChange={e => setVolume(Number(e.target.value))}
+                className="roi-slider"
+              />
+              <div className="roi-ticks"><span>20 orders</span><span>250 orders</span><span>500+ orders</span></div>
+            </div>
+            <div className="roi-cards">
+              <div className="roi-card">
+                <Icon name="clock" size={20} />
+                <div className="roi-val">{hoursSaved} hrs</div>
+                <div className="roi-lbl">Manual Chasing Saved / mo</div>
+              </div>
+              <div className="roi-card">
+                <Icon name="dollar" size={20} />
+                <div className="roi-val">${costSavings}</div>
+                <div className="roi-lbl">Est. Efficiency Gain / mo</div>
+              </div>
+              <div className="roi-card">
+                <Icon name="shieldCheck" size={20} />
+                <div className="roi-val">{errorReduction}%</div>
+                <div className="roi-lbl">Handoff Error Elimination</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="sect"><span className="sbar"></span><h2>Today, someone has to do this by hand</h2>

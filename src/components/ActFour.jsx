@@ -32,27 +32,101 @@ const metaOf = s => SCREEN_META[s] || SCREEN_META.dash
 function Win({ sid, setSid, label, setLabel, onSub, view, onView }) {
   const meta = metaOf(sid)
   const role = VIEW_ROLES[view] || VIEW_ROLES.mgmt
+  const [query, setQuery] = useState('')
+  const [notifOpen, setNotifOpen] = useState(false)
+
+  const cycleSeat = () => {
+    const roles = Object.keys(VIEW_ROLES)
+    const nextIndex = (roles.indexOf(view) + 1) % roles.length
+    if (onView) onView(roles[nextIndex])
+  }
+
+  const allowedSids = VIEW_SIDS[view] || VIEW_SIDS.mgmt
+  const q = query.trim().toLowerCase()
+
+  const NOTIFICATIONS = [
+    { title: 'SLA Breach — QC Decision', time: '3 min ago', type: 'b-bad' },
+    { title: 'Payment Threshold Ready', time: '21 min ago', type: 'b-warn' },
+    { title: '2 Handoffs Completed Today', time: '1 h ago', type: 'b-ok' },
+    { title: 'ETA Rewritten for SHIP-334', time: '2 h ago', type: 'b-mut' }
+  ]
+
   return (
     <div className="win">
       <div className="winbar">
         <span className="dot r"></span><span className="dot y"></span><span className="dot g"></span>
         <span className="ut">VSN ERP — Workspace</span>
         <div className="wintools">
-          <div className="winsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>search orders, RFQs, docs…</div>
-          <span className="winlic" id="winSeat" title={role.hint}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l9 4.9v10.2L12 22l-9-4.9V6.9z" /></svg>{role.label} ▾</span>
-          <span className="winbell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg><i className="dotc pulse"></i></span>
+          <div className="winsearch">
+            <Icon name="search" size={13} />
+            <input
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search workspace (PO, QC, RFQ)..."
+              className="winsearch-input"
+            />
+            {query && <button className="clear-q" onClick={() => setQuery('')}>✕</button>}
+          </div>
+          <span className="winlic" id="winSeat" title={role.hint} onClick={cycleSeat}>
+            <Icon name="users" size={13} />
+            {role.label} ▾
+          </span>
+          <div className="notif-wrap" style={{ position: 'relative' }}>
+            <span
+              className={'winbell' + (notifOpen ? ' active' : '')}
+              title="System Notifications"
+              onClick={() => setNotifOpen(!notifOpen)}
+            >
+              <Icon name="bell" size={13} />
+              <i className="dotc pulse"></i>
+            </span>
+            {notifOpen && (
+              <div className="notif-popover">
+                <div className="notif-head">
+                  <b>Live Alerts Today</b>
+                  <button onClick={() => setNotifOpen(false)}>✕</button>
+                </div>
+                <div className="notif-list">
+                  {NOTIFICATIONS.map((n, i) => (
+                    <div className="notif-item" key={i} onClick={() => { setSid('alert'); setNotifOpen(false); }}>
+                      <Icon name="alert" size={12} />
+                      <div className="notif-content">
+                        <b>{n.title}</b>
+                        <span>{n.time}</span>
+                      </div>
+                      <span className={'mbadge ' + n.type}>live</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="winbody">
         <div className="sidebar">
-          {SID_GROUPS.filter(g => g[1].some(item => (VIEW_SIDS[view] || VIEW_SIDS.mgmt).includes(item))).map(g => (
+          {SID_GROUPS.filter(g =>
+            g[1].some(item => allowedSids.includes(item) && (!q || SID_LABEL[item].toLowerCase().includes(q) || item.includes(q)))
+          ).map(g => (
             <div key={g[0]}>
               <div className="sidegroup">{g[0]}</div>
-              {g[1].filter(item => (VIEW_SIDS[view] || VIEW_SIDS.mgmt).includes(item)).map(item => (
-                <div key={item} className={'sideitem' + (sid === item ? ' on' : '') + (item === 'alert' ? ' alert' : '')} data-sid={item} onClick={() => { setSid(item); setLabel(view === 'emp' && EMP_LBL[item] ? EMP_LBL[item] : metaOf(item).sub) }}>
-                  <span className="e_item">{view === 'emp' && EMP_LBL[item] ? EMP_LBL[item] : SID_LABEL[item]}</span>{item === 'alert' ? <span className="adot pulse"></span> : null}
-                </div>
-              ))}
+              {g[1]
+                .filter(item => allowedSids.includes(item) && (!q || SID_LABEL[item].toLowerCase().includes(q) || item.includes(q)))
+                .map(item => (
+                  <div
+                    key={item}
+                    className={'sideitem' + (sid === item ? ' on' : '') + (item === 'alert' ? ' alert' : '')}
+                    data-sid={item}
+                    onClick={() => {
+                      setSid(item)
+                      setLabel(view === 'emp' && EMP_LBL[item] ? EMP_LBL[item] : metaOf(item).sub)
+                    }}
+                  >
+                    <span className="e_item">{view === 'emp' && EMP_LBL[item] ? EMP_LBL[item] : SID_LABEL[item]}</span>
+                    {item === 'alert' ? <span className="adot pulse"></span> : null}
+                  </div>
+                ))}
             </div>
           ))}
           {!role.hint ? null : <div className="sidenote">{role.hint}</div>}
@@ -67,7 +141,9 @@ function Win({ sid, setSid, label, setLabel, onSub, view, onView }) {
               ))}
             </div>
           </div>
-          <div id="a4Screen"><ScreenMain id={sid} view={view} onOpen={s => { setSid(s); setLabel(metaOf(s).sub) }} onSub={onSub} setLabel={setLabel} /></div>
+          <div id="a4Screen">
+            <ScreenMain id={sid} view={view} onOpen={s => { setSid(s); setLabel(metaOf(s).sub) }} onSub={onSub} setLabel={setLabel} />
+          </div>
         </div>
       </div>
     </div>
@@ -75,10 +151,17 @@ function Win({ sid, setSid, label, setLabel, onSub, view, onView }) {
 }
 
 function Homes({ setSid }) {
+  const openHome = sid => {
+    setSid(sid)
+    const win = document.querySelector('.win')
+    if (win && win.scrollIntoView) {
+      win.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
   return (
     <div className="autohomes" id="a4Homes">
       {SOFT_HOMES.map(m => (
-        <div key={m.k} className="ahome" data-sid={m.sid} title="Click to open this screen" onClick={() => setSid(m.sid)}>
+        <div key={m.k} className="ahome" data-sid={m.sid} title="Click to open this screen in workspace" onClick={() => openHome(m.sid)}>
           <div className="ah"><span className="aic" style={{ background: 'var(--erp)' }}><Icon name={m.ic} size={15} /></span>
             <div><b>{m.t}</b><span>{m.wf.toUpperCase()} · maps to Act 03</span></div></div>
           <div className="ad">{m.d}</div>

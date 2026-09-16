@@ -441,7 +441,7 @@ function Access() {
               {row.c.map((c, i) => (
                 <td className={'pcell ' + CLSA[c]} key={i}>
                   {c === 'V'
-                    ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></svg>
+                    ? <Icon name="eye" size={14} />
                     : MKA[c]}
                   <span className="why">{c === 'V' ? 'view' : c === 'D' ? 'decides' : c === 'C' ? 'can' : SOFT_HEAD[i].split(' ')[0]}</span>
                 </td>
@@ -450,8 +450,8 @@ function Access() {
           ))}
         </tbody>
       </table></div>
-      <div className="mlegend"><span><i className="mc dec">◆</i>the owner — their decision</span><span><i className="mc can">✓</i>can do it</span><span><i className="mc no">✕</i>not allowed</span><span><i className="mc view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></svg></i>views every lane, acts on exceptions only</span></div>
-      <div className="tbdstrip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><path d="M12 9v4M12 17h.01" /></svg><span>Every mark comes from your notes (rule IDs cited) — <b>nothing in this matrix is invented</b>. Where the notes don't settle a permission yet, the cell is marked <span className="tbdbadge">TBD</span>, not guessed.</span></div>
+      <div className="mlegend"><span><i className="mc dec">◆</i>the owner — their decision</span><span><i className="mc can">✓</i>can do it</span><span><i className="mc no">✕</i>not allowed</span><span><i className="mc view"><Icon name="eye" size={13} /></i>views every lane, acts on exceptions only</span></div>
+      <div className="tbdstrip"><Icon name="warn" size={14} /><span>Every mark comes from your notes (rule IDs cited) — <b>nothing in this matrix is invented</b>. Where the notes don't settle a permission yet, the cell is marked <span className="tbdbadge">TBD</span>, not guessed.</span></div>
     </>
   )
 }

@@ -210,7 +210,16 @@ export default function ActOne({ actRef, banner, on }) {
         <div className="leftc">
           <div className="ctrlbar">
             <button className="btn primary" id="btnPlay" onClick={() => actRef.current.togglePlay()}>
-              <span className="sv" id="playIc" dangerouslySetInnerHTML={{ __html: playing ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>' : '<path d="M8 5v14l11-7z"/>' }} />
+              <svg className="sv" id="playIc" viewBox="0 0 24 24" fill="currentColor">
+                {playing ? (
+                  <>
+                    <rect x="6" y="5" width="4" height="14" rx="1" />
+                    <rect x="14" y="5" width="4" height="14" rx="1" />
+                  </>
+                ) : (
+                  <path d="M8 5v14l11-7z" />
+                )}
+              </svg>
               <span id="playTxt">{playing ? 'Pause' : 'Play'}</span>
             </button>
             <button className="btn sub" id="btnStep" onClick={() => actRef.current.step()}>Step ›</button>
