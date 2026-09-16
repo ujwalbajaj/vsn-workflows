@@ -1,0 +1,35 @@
+const ACTS = [
+  { a: 1, grad: 'linear-gradient(135deg,#0284c7,#3b82f6)', label: '01', t: 'The Transaction', small: 'how it runs today' },
+  { a: 2, grad: 'linear-gradient(135deg,#8b5cf6,#6366f1)', label: '02', t: 'The System', small: '22 workflows · 198 nodes' },
+  { a: 3, grad: 'linear-gradient(135deg,#6366f1,#0d9488)', label: '03', t: 'Automation', small: 'the workflows we sell' },
+  { a: 4, grad: 'linear-gradient(135deg,#0f766e,#059669)', label: '04', t: 'The Software', small: '4 lenses · who can do what' }
+]
+
+export default function Header({ act, onAct, onLegend, onHelp, onKeys }) {
+  return (
+    <div className="top">
+      <div className="brand">
+        <div className="logo">VSN</div>
+        <div>
+          <div className="t1">VSN ERP — Client Presentation</div>
+          <div className="t2">One transaction · One timeline · One promise</div>
+        </div>
+      </div>
+      <div className="acts" id="acts" role="tablist">
+        {ACTS.map(x => (
+          <button key={x.a} className={'acttab' + (act === x.a ? ' on' : '')} data-a={x.a} onClick={() => onAct(x.a)}>
+            <span className="ac" style={{ background: x.grad }}>{x.label}</span>
+            <span>{x.t}<span className="small">{x.small}</span></span>
+          </button>
+        ))}
+      </div>
+      <div className="chips">
+        <button className="chip key" id="legendBtn" onClick={onLegend}><span className="sw"></span>Colour legend</button>
+        <button className="chip help" id="helpBtn" onClick={onHelp}>? Guide</button>
+        <button className="chip keys" id="keysBtn" onClick={onKeys}><kbd>⌘</kbd><kbd>/</kbd></button>
+        <span className="chip">MPN-24LC256 · 1000 pcs</span>
+        <span className="chip">Deadline 12d</span>
+      </div>
+    </div>
+  )
+}
