@@ -34,7 +34,7 @@ function Rule({ children }) { return <span className="rule">{children}</span> }
 
 function Ic({ n, sz = 12 }) { return <Icon name={n} size={sz} /> }
 
-const SLA_CLOCKS = [['Supplier quote', 'Purchase', '1 d 02 h', 'on track', 'b-ok'], ['Payment approval', 'Finance', '05 h', 'watching', 'b-warn'], ['QC decision', 'Store', 'OVERDUE 3 h', 'raising alert', 'b-bad'], ['ETA to customer', 'Logistics', '2 d 08 h', 'on track', 'b-ok']]
+const SLA_CLOCKS = [['Supplier quote', 'Purchase', '1 d 02 h', 'on track', 'b-ok', 75], ['Payment approval', 'Finance', '05 h', 'watching', 'b-warn', 40], ['QC decision', 'Store', 'OVERDUE 3 h', 'raising alert', 'b-bad', 95], ['ETA to customer', 'Logistics', '2 d 08 h', 'on track', 'b-ok', 60]]
 const EXC_OPEN = [['Vendor delay — PO-2305', 'purchase', 'HIGH', 'b-bad'], ['QC hold — GRN-201', 'store', 'MID', 'b-warn'], ['Credit near limit', 'finance', 'MID', 'b-warn']]
 const ALERT_FEED = [['SLA breach — QC decision', '3 min ago', 'HIGH', 'b-bad'], ['Payment above threshold ready', '21 min ago', 'MID', 'b-warn'], ['2 handoffs handed today', '1 h ago', 'info', 'b-mut'], ['ETA rewritten for SHIP-334', '2 h ago', 'info', 'b-mut']]
 const ETA_TABLE = [['PO acknowledged', 'PO-2304', 'done'], ['Inbound shipment', 'SHIP-334', 'done'], ['QC + GRN', 'GRN-201', 'next'], ['Dispatch', '—', 'next'], ['Proof of delivery', 'POD', 'next']]
@@ -81,7 +81,7 @@ const MGMT_KPI = [
 const MGMT_DEPS = [['sales', 'Sales — RFQs & quotes', 'On track', 'b-ok'], ['purchase', 'Purchase — PO & supply', 'Follow-up', 'b-warn'], ['finance', 'Finance — payments / onboarding (FN-15/16)', 'On track', 'b-ok'], ['log', 'Logistics — shipment / ETA', 'ETA watch', 'b-warn'], ['store', 'Store — GRN / QC', 'On track', 'b-ok']]
 const MGMT_BLK = [['Vendor delay holding shipment', 'Blocker', 'b-bad'], ['QC hold on inbound lot', 'Pending', 'b-warn'], ['Advance payment awaiting Finance action', 'Parallel', 'b-mut'], ['Alternative-MPN awaiting customer reply', 'Waiting', 'b-mut']]
 const MGMT_APP = [['Vendor selection — multi-factor, not cheapest', 'Purchase + Manager', 'b-mut'], ['Margin decision on quotation', 'Sales + Manager', 'b-warn'], ['Short-supply resolution', 'Priority TBD (TBD-10)', 'b-mut'], ['QC reject → vendor adjustment', 'Flow TBD (TBD-11)', 'b-mut']]
-const MGMT_WL = [['Sales', 12, '#10b981'], ['Purchase', 9, '#f59e0b'], ['Finance', 6, '#10b981'], ['Logistics', 8, '#f59e0b'], ['Store / QC', 7, '#10b981']]
+const MGMT_WL = [['Sales', 12, '#10b981', '#f59e0b', '#e3e8f1'], ['Purchase', 9, '#f59e0b', '#10b981', '#e3e8f1'], ['Finance', 6, '#10b981', '#e3e8f1', '#e3e8f1'], ['Logistics', 8, '#f59e0b', '#10b981', '#e3e8f1'], ['Store / QC', 7, '#10b981', '#e3e8f1', '#e3e8f1']]
 
 function ManagerDash({ onOpen }) {
   const [active, setActive] = useState(false)
@@ -123,14 +123,14 @@ function ManagerDash({ onOpen }) {
         <div className="dashcard">
           <div className="sct">Team workload (MG-02)</div>
           <div className="wbars">
-            {MGMT_WL.map(w => <div className="wbar" key={w[0]}><span>{w[0]}</span><div className="bar"><i style={{ width: active ? w[1] * 10 + '%' : '2%', background: w[2], transition: 'width .9s cubic-bezier(.2,.8,.3,1)' }}></i></div><span className="n">{w[1]} tasks</span></div>)}
+            {MGMT_WL.map(w => <div className="wbar" key={w[0]}><span>{w[0]}</span><div className="bar"><div className="wbar-stacked"><i style={{ width: active ? (w[1] * 5) + '%' : '2%', background: w[2], transition: 'width .9s cubic-bezier(.2,.8,.3,1)' }}></i><i style={{ width: active ? (w[1] * 3) + '%' : '1%', background: w[3], transition: 'width .9s cubic-bezier(.2,.8,.3,1)' }}></i></div></div><span className="n">{w[1]} tasks</span></div>)}
           </div>
         </div>
       </div>
       <div className="dashgrid">
         <div className="dashcard">
           <div className="sct">SLA clocks — live</div>
-          <div className="dashrows">{SLA_CLOCKS.map(x => <div className="ddrow" key={x[0]}><span className="ml"><Ic n="clock" />{x[0]}</span><span className="mt"><span className={'mbadge ' + x[4]}>{x[3]}</span><span className="rule">{x[2]}</span></span></div>)}</div>
+          <div className="dashrows">{SLA_CLOCKS.map(x => <div className="ddrow" key={x[0]}><span className={'sla-ring ' + x[4].replace('b-','')} style={{ '--ring-pct': x[5] + '%' }}></span><span className="ml"><Ic n="clock" />{x[0]}</span><span className="mt"><span className={'mbadge ' + x[4]}>{x[3]}</span><span className="rule">{x[2]}</span></span></div>)}</div>
           <div className="muted" style={{ fontSize: 10, marginTop: 9 }}>SLA values TBD — the ladder (auto-escalation) is the confirmed part.</div>
         </div>
         <div className="dashcard">
@@ -382,7 +382,10 @@ function Eta() {
   return (
     <div className="lane2">
       <div className="scard"><div className="sct">Customer-visible ETA · RFQ-2026-0087</div>
-        <div className="kbox" style={{ marginBottom: 8 }}><b>3 d 04 h</b><span>next ETA update · LG-06</span></div>
+        <div className="kbox" style={{ marginBottom: 6 }}><b>3 d 04 h</b><span>next ETA update · LG-06</span></div>
+        <div className="eta-bar">
+          {d.map((x, i) => <span key={x[0]} className={'eta-seg' + (x[2] === 'done' ? ' done' : '')} />)}
+        </div>
         {d.map(x => <div className="mrow" key={x[0]}><span className="ml"><Ic n="route" />{x[0]}</span><span className="mt">{x[1]}</span><span className={'mbadge ' + (x[3] === 'next' ? 'b-mut' : 'b-ok')}>{x[3]}</span><Rule>{x[2]}</Rule></div>)}
       </div>
       <div className="scard"><div className="sct">What changes the ETA</div>

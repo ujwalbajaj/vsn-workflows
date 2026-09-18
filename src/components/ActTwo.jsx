@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { CATS } from '../data/catalog.js'
 import { D } from '../data/departments.js'
-import { ACTINTRO } from '../data/intro.js'
 import { Icon } from '../lib/icons.jsx'
 
 function deptChip(key) {
@@ -51,14 +50,11 @@ export default function ActTwo({ onOpenDiag, on }) {
 
   return (
     <div className={'act' + (on ? ' on' : '')} data-slot="2">
-      <div className="hero">
-        <span className="k">Act 02</span><h1>The System</h1>
-        <span className="hsub">Every process we mapped for VSN — click any workflow to expand it.</span>
-        <span className="heroline">Colours = departments · dashed purple = automation the ERP runs</span>
-      </div>
-      <div className="actbanner" id="actBanner2">
-        <div className="ab"><b>What this is</b><span>{ACTINTRO[1].what}</span></div>
-        <div className="ab"><b>What we did</b><span>{ACTINTRO[1].did}</span></div>
+      <div className="act-hero act-2">
+        <span className="k">Act 02 · The System</span>
+        <h1>The System</h1>
+        <div className="sub">Every process we mapped for VSN — click any workflow to expand it. Colours = departments · dashed purple = automation the ERP runs.</div>
+        <div className="pibadges"><span className="pib">22 workflows</span><span className="pib">198 nodes</span><span className="pib">4 categories</span><span className="pib">6 departments</span></div>
       </div>
       <div className="statrow" id="statrow">
         {stats.row.map(s => <div className="stat" key={s[1]}><b>{s[0]}</b><span>{s[1]}</span></div>)}

@@ -14,7 +14,7 @@ const STYLE_SYS = [
   { sw: '#4338ca', sm: true, b: 'Executive', d: 'The whole business in one screen' },
   { sw: '#0284c7', sm: true, b: 'Core workflows', d: 'How the business actually runs' },
   { sw: '#6366f1', sm: true, b: 'Automation', d: 'Modules we can switch on for you' },
-  { sw: 'repeating-linear-gradient(45deg,#0d9488,#0d9488 4px,#fff 4px,#fff 8px)', sm: true, b: 'Strategic', d: 'The transformation view' }
+  { sw: '#0d9488', sm: true, b: 'Strategic', d: 'The transformation view' }
 ]
 const STYLE_OFFER = [
   { sw: '#6366f1', swLabel: '⇄', b: 'Automation modules', d: '6 proven modules — click any to open it' },

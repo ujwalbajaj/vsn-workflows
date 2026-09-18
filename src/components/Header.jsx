@@ -1,8 +1,8 @@
 const ACTS = [
-  { a: 1, grad: 'linear-gradient(135deg,#0284c7,#3b82f6)', label: '01', t: 'The Transaction', small: 'how it runs today' },
-  { a: 2, grad: 'linear-gradient(135deg,#8b5cf6,#6366f1)', label: '02', t: 'The System', small: '22 workflows · 198 nodes' },
-  { a: 3, grad: 'linear-gradient(135deg,#6366f1,#0d9488)', label: '03', t: 'Automation', small: 'the workflows we sell' },
-  { a: 4, grad: 'linear-gradient(135deg,#0f766e,#059669)', label: '04', t: 'The Software', small: 'one module · who can do what' }
+  { a: 1, color: '#3b82f6', label: '01', t: 'The Transaction', small: 'how it runs today' },
+  { a: 2, color: '#8b5cf6', label: '02', t: 'The System', small: '22 workflows · 198 nodes' },
+  { a: 3, color: '#6366f1', label: '03', t: 'Automation', small: 'the workflows we sell' },
+  { a: 4, color: '#0d9488', label: '04', t: 'The Software', small: 'one module · who can do what' }
 ]
 
 export default function Header({ act, onAct, onLegend, onHelp, onKeys }) {
@@ -18,7 +18,7 @@ export default function Header({ act, onAct, onLegend, onHelp, onKeys }) {
       <div className="acts" id="acts" role="tablist">
         {ACTS.map(x => (
           <button key={x.a} className={'acttab' + (act === x.a ? ' on' : '')} data-a={x.a} onClick={() => onAct(x.a)}>
-            <span className="ac" style={{ background: x.grad }}>{x.label}</span>
+            <span className="ac" style={{ background: x.color }}>{x.label}</span>
             <span>{x.t}<span className="small">{x.small}</span></span>
           </button>
         ))}

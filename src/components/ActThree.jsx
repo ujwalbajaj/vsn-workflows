@@ -16,7 +16,7 @@ export default function ActThree({ on }) {
   return (
     <div className={'act' + (on ? ' on' : '')} data-slot="3" style={{ display: on ? 'flex' : 'none' }}>
       <div className="scrolly">
-        <div className="pitchhero">
+        <div className="act-hero act-3">
           <div className="k">Act 03 · The offer</div>
           <h1>Your workflows work. They're just running on people — not on a system.</h1>
           <div className="sub">We mapped all 22 of your workflows. Now here's the part we can <b>sell to you</b>: the ERP takes over the repetitive, chase-prone, hand-carried parts — and your team keeps the thinking.</div>
@@ -43,6 +43,13 @@ export default function ActThree({ on }) {
                 className="roi-slider"
               />
               <div className="roi-ticks"><span>20 orders</span><span>250 orders</span><span>500+ orders</span></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10 }}>
+                <div className="donut-chart" style={{ '--donut-pct': errorReduction + '%' }}></div>
+                <div style={{ fontSize: 10, color: 'var(--muted)', lineHeight: 1.5 }}>
+                  <b style={{ color: 'var(--ink)', fontSize: 13, fontFamily: 'var(--mono)' }}>{errorReduction}%</b><br />
+                  error elimination<br />with automation
+                </div>
+              </div>
             </div>
             <div className="roi-cards">
               <div className="roi-card">
@@ -67,7 +74,7 @@ export default function ActThree({ on }) {
         <div className="sect"><span className="sbar"></span><h2>Today, someone has to do this by hand</h2>
           <div className="ssub">The pain points are real — you can see them in Act 01 as you watch the transaction run.</div></div>
         <div className="painrow" id="painrow">
-          {PAINS.map(p => <div className="pain" key={p.t}><Icon name={p.ic} size={17} /><b>{p.t}</b><span>{p.d}</span></div>)}
+          {PAINS.map(p => <div className="pain" key={p.t}><span className="pic"><Icon name={p.ic} size={15} /></span><div><b>{p.t}</b><span>{p.d}</span></div></div>)}
         </div>
 
         <div className="sect"><span className="sbar"></span><h2>What we can automate for you</h2>
@@ -88,7 +95,7 @@ export default function ActThree({ on }) {
                 <div><b>{m.t}</b><div style={{ fontSize: 11, color: 'var(--muted)' }}>{m.sub}</div></div></div>
               <div className="mdesc" style={{ fontSize: 12, color: 'var(--muted)', marginTop: 10, lineHeight: 1.6 }}>{m.d}</div>
               <div className="flowline">{m.phases.map((p, i) => <span key={p}>{i > 0 ? <span className="flarrow">→</span> : null}<span className="flstep">{p}</span></span>)}</div>
-              <div style={{ marginTop: 12, fontSize: 11.5, background: '#eef2ff', border: '1px solid #c7d2fe', borderRadius: 10, padding: '10px 13px', color: '#3730a3' }}>
+              <div className="module-info-box">
                 <b>What it takes off your team:</b> {m.repl}</div>
             </div>
           )}

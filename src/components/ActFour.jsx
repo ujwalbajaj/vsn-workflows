@@ -185,12 +185,11 @@ export default function ActFour({ sub, onSubTab, onOpen, sid, onSid, on, view, o
   return (
     <div className={'act' + (on ? ' on' : '')} data-slot="4" style={{ display: on ? 'flex' : 'none' }}>
       <div className="scrolly">
-        <div className="softhero">
+        <div className="act-hero act-4">
           <span className="k">Act 04 · The Software</span>
           <h1>What the ERP looks like — not just what it does.</h1>
           <div className="sub">Everything lives in <b>one screen module</b>. Sidebar, live order, the six automation homes and the permission map are all inside the same workspace — no department tabs, no role pickers. The honest part stays: <b>who can do what</b>, marks that came straight from your rules.</div>
           <div className="pibadges"><span className="pib">1 screen module</span><span className="pib">6 automation homes embedded</span><span className="pib">all departments on it</span><span className="pib">✓ can · ✕ not allowed · ◆ decides</span></div>
-          <div className="ghost"></div>
         </div>
 
         <div className="sect"><span className="sbar"></span><h2>The screen everyone opens — one module, all departments</h2>

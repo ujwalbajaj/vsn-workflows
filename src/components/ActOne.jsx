@@ -197,14 +197,19 @@ export default function ActOne({ actRef, banner, on }) {
 
   return (
     <div className={'act' + (on ? ' on' : '')} id="act-stage" data-slot="1">
-      <div className="hero">
-        <span className="k">Act 01</span><h1>The Transaction</h1>
-        <span className="hsub">RFQ → POD — one order traced end-to-end across six departments.</span>
-        <span className="heroline">Every decision shows <b>all</b> candidate paths · the run highlights the path VSN's rules take</span>
+      <div className="act-hero act-1">
+        <span className="k">Act 01 · The Transaction</span>
+        <h1>The Transaction</h1>
+        <div className="sub">RFQ → POD — one order traced end-to-end across six departments. Every decision shows <b>all</b> candidate paths · the run highlights the path VSN's rules take.</div>
+        <div className="pibadges"><span className="pib">RFQ → POD</span><span className="pib">28 steps</span><span className="pib">6 departments</span><span className="pib">13 decisions</span></div>
       </div>
-      <div className="actbanner" id="actBanner1">
-        <div className="ab"><b>What this is</b><span>{banner.what}</span></div>
-        <div className="ab"><b>What we did</b><span>{banner.did}</span></div>
+      <div className="tx-timeline">
+        {STEPS.map((s, i) => (
+          <span key={s.id} style={{ display: 'contents' }}>
+            <span className={'tx-dot' + (i < idx ? ' done' : i === idx ? ' active' : '')} style={i <= idx && s.d ? { background: s.d.col } : {}} title={s.t} />
+            {i < STEPS.length - 1 && <span className={'tx-line' + (i < idx ? ' done' : '')} />}
+          </span>
+        ))}
       </div>
       <div className="lay1">
         <div className="leftc">
